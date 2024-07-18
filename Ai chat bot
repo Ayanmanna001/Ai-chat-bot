@@ -1,0 +1,65 @@
+pip install nltk
+# create script for chat bot
+import nltk
+from nltk.chat.util import Chat, reflections
+
+# Download NLTK data files (if not already downloaded)
+nltk.download('punkt')
+
+# Define pairs of patterns and responses
+pairs = [
+    [
+        r"(hi|hello|hey)",
+        ["Hello!", "Hi there!", "Hey!"]
+    ],
+    [
+        r"what is your name?",
+        ["My name is ChatBot.", "I'm ChatBot."]
+    ],
+    [
+        r"how are you?",
+        ["I'm doing well, thank you!", "I'm good, how about you?"]
+    ],
+    [
+        r"sorry (.*)",
+        ["It's alright.", "No worries.", "It's okay."]
+    ],
+    [
+        r"i'm (.*) (good|well|okay|ok)",
+        ["Glad to hear that!", "That's great!"]
+    ],
+    [
+        r"(.*) (location|city) ?",
+        ["I'm a virtual assistant, so I don't have a physical location."]
+    ],
+    [
+        r"how is the weather in (.*)?",
+        ["I don't have access to weather data at the moment.", "Try checking a weather website for that information."]
+    ],
+    [
+        r"quit",
+        ["Bye! Take care.", "Goodbye!"]
+    ],
+    [
+        r"(.*)",
+        ["I'm not sure I understand. Could you rephrase?", "Can you tell me more?", "I'm here to listen."]
+    ]
+]
+
+# Create the ChatBot instance
+chatbot = Chat(pairs, reflections)
+
+# Function to start the chatbot
+def chatbot_start():
+    print("Hi, I'm ChatBot! Type 'quit' to exit.")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == "quit":
+            print("ChatBot: Goodbye!")
+            break
+        response = chatbot.respond(user_input)
+        print(f"ChatBot: {response}")
+
+# Run the chatbot
+if __name__ == "__main__":
+    chatbot_start()
